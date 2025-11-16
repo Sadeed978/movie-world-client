@@ -43,7 +43,11 @@ const Navber = () => {
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">MOVIE <span className=' text-blue-400'>WORLD</span></a>
+                <div className='flex flex-row border rounded p-2 bg-amber-500'>
+                <img src='https://i.ibb.co.com/GfSCnRZW/png-clipart-movies-logo-backsheet-hand-painted.png' alt="" className='w-9'/>
+                <a className="btn btn-ghost text-xl">MOVIE <span className=' text-blue-600'>WORLD</span></a>
+                </div>
+                
             </div>
             <div className="navbar-center hidden  lg:flex">
                 <ul className="menu menu-horizontal px-1">

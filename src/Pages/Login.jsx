@@ -39,6 +39,17 @@ const Login = () => {
        setUser(user);
        toast.success((user.displayName || user.email) + ' logged in with Google successfully');
        navigate (location.state || '/');
+       fetch('http://localhost:3000/users',{
+        method: 'POST',
+        headers:{
+          'content-type':'application/json'
+        },
+        body:JSON.stringify(user)
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log('get the data', data)
+        })
      })
      .catch(error => {
        toast.error('Error during Google sign-in: ' + error.message);
