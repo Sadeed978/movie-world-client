@@ -12,6 +12,12 @@ const Navber = () => {
         <li><NavLink  to='/' className={linkClass}>Home</NavLink></li>
         <li><NavLink to='/Register'className={linkClass}>Registration</NavLink></li>
         <li><NavLink to='/Login'className={linkClass}>Login</NavLink></li>
+        <li><NavLink to='/Movies'className={linkClass}>Movies</NavLink></li>
+        <li><NavLink to='/movies/:id'className={linkClass}>MoviesDetails</NavLink></li>
+        {user && <> <li><NavLink to='/Movies/update/:id'className={linkClass}>MoviesUpdates</NavLink></li>
+        <li><NavLink to='/Movies/add'className={linkClass}>AddMovies</NavLink></li>
+        <li><NavLink to='Movies/MyCollection'className={linkClass}>MyCollection</NavLink></li>
+        </>}
     </>
     const handleLogOut = () => {
         signOutUser()

@@ -4,6 +4,12 @@ import Home from "../Pages/Home";
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
 import ErrorPage from '../Pages/ErrorPage';
+import Movies from "../Pages/Movies";
+import MoviesDetails from "../Pages/MoviesDetails";
+import AddMovie from "../Pages/AddMovie";
+import MovieUpdates from "../Pages/MovieUpdates";
+import PrivateRoute from "../PrivateRoute";
+import MyCollections from "../Pages/MyCollections";
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +29,28 @@ export const router = createBrowserRouter([
         path:'/Register',
         Component:Register
       },
-      
+      {
+        path:'/Movies',
+        Component:Movies
+      },
+      {
+        path:'/Movies/:id',
+        Component:MoviesDetails
+      },
+      {
+        path:'/Movies/update/:id',
+        element:<PrivateRoute><MovieUpdates></MovieUpdates></PrivateRoute>
+      },
+      {
+        path:'/Movies/add',
+        element:<PrivateRoute><AddMovie></AddMovie></PrivateRoute>
+    
+      },
+      {
+        path:'Movies/MyColection',
+        element:<PrivateRoute><MyCollections></MyCollections></PrivateRoute>
+    
+      },
     ]
   }
 ]);
