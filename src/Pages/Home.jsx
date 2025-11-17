@@ -1,47 +1,62 @@
 import React from 'react';
-import {Swiper,SwiperSlide} from 'swiper/react';
+import Banner from '../component/Banner';
+import { useLoaderData } from 'react-router';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { EffectFade, Autoplay } from 'swiper/modules';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import { EffectCoverflow, Pagination } from 'swiper/modules';
+import Movie from '../component/Movie';
 const Home = () => {
-    const images = [
-        "https://i.ibb.co.com/xSGFyz0Y/2019movies-900x789.jpg",
-        "https://i.ibb.co.com/9HRwrmk6/photo-1626814026160-2237a95fc5a0-fm-jpg-q-60-w-3000-ixlib-rb-4-1.jpg",
-        "https://i.ibb.co.com/d0Sw8rXD/a-PGps1-Ze-Or7-OC6s-F3-Vvzg-store-banner-image.jpg"
-
-
-    ];
+    const data = useLoaderData();
     return (
         <div>
-           
+            <Banner></Banner>
+            <div className='text-center my-10 p-4'>
 
-        <div className="relative w-full h-[450px]">
-            <Swiper
-              modules={[EffectFade, Autoplay]}
-              effect="fade"
-              autoplay={{ delay: 3000 }}
-              loop={true}
-              className="w-full h-full"
-            >
-              {images.map((img, index) => (
-                <SwiperSlide key={index}>
-                  <div
-                    className="w-full h-full bg-cover bg-center"
-                    style={{ backgroundImage: `url(${img})` }}
-                  >
-                  
-                    <div className="max-w-md text-white p-8  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded">
-                        <h1 className="mb-5 text-5xl font-bold">Welcome to <br />Movie <span className='text-blue-500'>World</span></h1>
-                        <p className="mb-5">Dive into a world of movies where every story comes alive. Discover trending films, fan favorites, and timeless classics—all in one place.</p>
-                         <input type="text" placeholder="🔍Search Your Movie" className='bg-black-400' />
-                    </div>
-                </div>
-                </SwiperSlide>
-              ))}
-              
-            </Swiper>
-                    
+                <h1 className='text-3xl text-gray-500'>Best <span className='text-blue-500'> Movies</span> </h1>
+                <p className='text-2xl text-gray-500'>Explore our curated selection of top-rated movies, handpicked for your viewing pleasure. Dive into captivating stories and unforgettable performances.</p>
             </div>
-         </div>
+            <div className="my-5">
+                <Swiper
+                    effect="coverflow"
+                    grabCursor={true}
+                    centeredSlides={true}
+                    slidesPerView={6}
+                    spaceBetween={30} 
+                    coverflowEffect={{
+                        rotate: 0,
+                        stretch: 0,
+                        depth: 90,
+                        modifier: 1,
+                        slideShadows: true,
+                    }}
+                    pagination={{ clickable: true }}
+                    modules={[EffectCoverflow, Pagination]}
+                    className="w-full h-[400px]"
+                >
+                    {data.map((movie) => (
+                        <SwiperSlide key={movie.id}>
+                            <div className="relative w-full h-full">
+                                <img
+                                    src={movie.posterUrl}
+                                    alt={movie.title}
+                                    className="w-full h-full object-cover rounded-lg transform transition-transform duration-200 hover:scale-110"
+                                />
+                                <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-200">
+                                    <h2 className="text-2xl font-bold">{movie.title}</h2>
+                                    <p className="text-sm">{movie.plotSummary}</p>
+                                </div>
+                            </div>
+                            </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
+
+
+            
+            </div>
+         
         
     );
 };
