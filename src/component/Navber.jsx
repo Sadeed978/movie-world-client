@@ -3,6 +3,7 @@ import { NavLink } from 'react-router';
 import { Link } from 'react-router';
 import AuthContext from '../contexts/AuthContexts';
 import { use } from 'react';
+import {FaRegUserCircle } from "react-icons/fa";
 import { toast } from 'react-toastify';
 
 const Navber = () => {
@@ -13,8 +14,8 @@ const Navber = () => {
         <li><NavLink to='/Register' className={linkClass}>Registration</NavLink></li>
         <li><NavLink to='/Login' className={linkClass}>Login</NavLink></li>
         <li><NavLink to='/Movies' className={linkClass}>Movies</NavLink></li>
-        <li><NavLink to='/movies/:id' className={linkClass}>MoviesDetails</NavLink></li>
-        {user && <> <li><NavLink to='/Movies/update/:id' className={linkClass}>MoviesUpdates</NavLink></li>
+        
+        {user && <> 
             <li><NavLink to='/Movies/add' className={linkClass}>AddMovies</NavLink></li>
             <li><NavLink to='Movies/MyCollection' className={linkClass}>MyCollection</NavLink></li>
         </>}

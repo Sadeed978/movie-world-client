@@ -39,12 +39,18 @@ const Login = () => {
        setUser(user);
        toast.success((user.displayName || user.email) + ' logged in with Google successfully');
        navigate (location.state || '/');
+       const newUser = {
+        name: user.Name,
+        photo: user.Photo,
+        email: user.email,
+        uid: user.uid,
+      };
        fetch('http://localhost:3000/users',{
         method: 'POST',
         headers:{
           'content-type':'application/json'
         },
-        body:JSON.stringify(user)
+        body:JSON.stringify(newUser)
       })
         .then(res => res.json())
         .then(data => {

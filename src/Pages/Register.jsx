@@ -20,17 +20,30 @@ const Register = () => {
     const Photo = event.target.Photo.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
+    const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])(?=.*[0-9])[A-Za-z0-9!@#$%^&*]{6,}$/;
+    if (!passwordPattern.test(password)) {
+      setError("Password must be 6 character,one upperletter and one lower class and should also one especial charater")
+      return;
+    }
+    
     createUser(email, password)
       .then(result => {
         const user = result.user;
+        console.log(user);
         setUser(user);
-        toast.success((user.displayName || user.email) + 'you have create an Account')
+        toast.success((user.displayName || user.email) + ' Welcome to Movie World');
+        const newUser = {
+          name: Name,
+          photo: Photo,
+          email: user.email,
+          uid: user.uid,
+        };
         fetch('http://localhost:3000/users',{
           method: 'POST',
           headers:{
             'content-type':'application/json'
           },
-          body:JSON.stringify(user)
+          body:JSON.stringify(newUser)
         })
           .then(res => res.json())
           .then(data => {
@@ -42,11 +55,7 @@ const Register = () => {
         toast.error('Error during Google sign-in: ' + error.message);
       })
 
-    const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[A-Za-z!@#$%^&*]{6,}$/;
-    if (!passwordPattern.test(password)) {
-      setError("Password must be 6 character,one upperletter and one lower class and should also one especial charater")
-      return;
-    }
+    
 
   }
   return (
