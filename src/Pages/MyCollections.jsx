@@ -31,14 +31,14 @@ const MyCollections = () => {
             </div>
             <div className='grid md:grid-cols-3 '>
                 { movies.map(movie=>(
-                    <div key={movie.id} className="card card-compact w-96 bg-base-100 shadow-xl m-4">
+                    <div key={movie._id} className="card card-compact w-96 bg-base-100 shadow-xl m-4">
                         <figure><img src={movie.photo} alt="Movie Image" /></figure>
                         <div className="card-body">
                             <h2 className="card-title">{movie.movieName}</h2>
                             <p>Rating: {movie.rating}</p>
                             <p>Publish Year: {movie.publishYear}</p>
                             <div className='flex flex-row'>
-                                <Link to='/Movies/update/:id'><button className="btn btn-primary">Edit</button></Link>
+                                <Link to={`/Movies/update/${movie._id}`}><button className="btn btn-primary">Edit</button></Link>
                                 <button onClick={()=>handleDelete(movie._id)}className="btn btn-secondary ml-4">Delete</button>
                             </div>
                         </div>

@@ -9,6 +9,7 @@ const MovieUpdates = () => {
     const navigate = useNavigate();
     const { user } = use(AuthContext);
     const [movieData, setMovieData] = useState(null);
+    console.log(id)
 
     useEffect(() => {
         fetch(`http://localhost:3000/moviesById/${id}`)

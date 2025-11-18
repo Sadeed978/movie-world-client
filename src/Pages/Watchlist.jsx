@@ -11,7 +11,7 @@ const Watchlist = () => {
         fetch(`http://localhost:3000/watchlist?email=${user.email}`)
         .then(res=>res.json())
         .then(data=>setWatchlist(data));
-        
+        console.log(watchlist);
     });
 
     const handleRemove=(id)=>{
@@ -35,7 +35,7 @@ const Watchlist = () => {
                     <div key={movie._id} className="card card-compact w-full bg-base-100 shadow-xl">
                         <figure><img src={movie.photo} alt="Movie Image" /></figure>
                         <div className="card-body">
-                            <h2 className="card-title">{movie.movieName}</h2>
+                            <h2 className="card-title">{movie.movieN}</h2>
                             <div className="card-actions justify-end">
                                 <button onClick={()=>handleRemove(movie._id)} className="btn btn-secondary">Remove</button>
                             </div>
