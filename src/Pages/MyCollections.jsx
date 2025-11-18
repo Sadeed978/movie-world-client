@@ -1,9 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { use } from 'react';
 import AuthContext from '../contexts/AuthContexts';
+import { Link } from 'react-router';
 const MyCollections = () => {
     const {user} = use(AuthContext)
-    
+    const handleDelete = (id) => {
+        fetch(`http://localhost:3000/movies/${id}`, {
+            method: 'DELETE',
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.deletedCount > 0) {
+                alert("Movie Deleted!");
+                setMovies(movies.filter(movie => movie._id !== id));
+            }
+        });}
     const [movies,setMovies]=useState([]);
     useEffect(()=>{
         if (!user?.email)return;
@@ -26,6 +37,10 @@ const MyCollections = () => {
                             <h2 className="card-title">{movie.movieName}</h2>
                             <p>Rating: {movie.rating}</p>
                             <p>Publish Year: {movie.publishYear}</p>
+                            <div className='flex flex-row'>
+                                <Link to='/Movies/update/:id'><button className="btn btn-primary">Edit</button></Link>
+                                <button onClick={()=>handleDelete(movie._id)}className="btn btn-secondary ml-4">Delete</button>
+                            </div>
                         </div>
                     </div>
                 ))}

@@ -19,6 +19,7 @@ const Navber = () => {
         {user && <> 
             <li><NavLink to='/Movies/add' className={linkClass}>AddMovies</NavLink></li>
             <li><NavLink to='/Movies/MyColection' className={linkClass}>MyCollection</NavLink></li>
+            <li><NavLink to='/Movies/Watchlist' className={linkClass}>Watchlist</NavLink></li>
         </>}
     </>
     const handleLogOut = () => {
