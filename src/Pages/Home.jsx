@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense, useEffect } from 'react';
 import Banner from '../component/Banner';
 import { useLoaderData } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -6,9 +6,18 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import { EffectCoverflow, Pagination } from 'swiper/modules';
-import Movie from '../component/Movie';
+import RecentMovies from '../component/RecentMovies';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 const Home = () => {
     const data = useLoaderData();
+    const latestMoviePromise = fetch('http://localhost:3000/latestMovies')
+    .then((res) => res.json());
+    useEffect(() => {
+        Aos.init({ duration: 1000, 
+        easing : 'ease-in-out',
+        once: true,});
+    }, []);
     return (
         <div>
             <Banner></Banner>
@@ -37,7 +46,8 @@ const Home = () => {
                 >
                     {data.map((movie) => (
                         <SwiperSlide key={movie.id}>
-                            <div className="relative w-full h-full">
+                            <div className="relative w-full h-full" data-aos="fade-up" data-aos-delay= "200">
+                                
                                 <img
                                     src={movie.posterUrl}
                                     alt={movie.title}
@@ -52,7 +62,13 @@ const Home = () => {
                     ))}
                 </Swiper>
             </div>
+                  <div data-aos="fade-up" data-aos-delay="100" className='my-10 p-4'>
+                   <Suspense fallback={<div className='text-center text-3xl text-blue-500'>Loading...</div>}>
+                   <RecentMovies latestMoviePromise={latestMoviePromise}></RecentMovies>
+                   </Suspense>
+                  
 
+                  </div>
 
             
             </div>

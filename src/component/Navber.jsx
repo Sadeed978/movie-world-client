@@ -6,6 +6,7 @@ import { use } from 'react';
 import {FaRegUserCircle } from "react-icons/fa";
 import { toast } from 'react-toastify';
 
+
 const Navber = () => {
     const { user, signOutUser } = use(AuthContext);
     const linkClass = ({ isActive }) => (isActive ? 'text-blue-500  font-bold' : 'default');

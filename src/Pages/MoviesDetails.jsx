@@ -10,7 +10,7 @@ const MoviesDetails = () => {
     const { title, plotSummary, posterUrl,duration,rating,cast} = data;
     return (
         <div>
-            <div className="card card-side bg-base-100 shadow-sm items-center m-4 p-10">
+            <div className="card card-side flex flex-col md:flex-row lg:flex-row bg-base-100 shadow-sm items-center m-4 p-10">
                 <figure>
                     <img
                         src={posterUrl}
@@ -18,7 +18,7 @@ const MoviesDetails = () => {
                 </figure>
                 <div className="card-body text-2xl">
                     <h2 className="card-title">{title}</h2>
-                    <p >{plotSummary}</p>
+                    <p className='text-xl text-gray-600'>{plotSummary}</p>
 
                     <p className='text-blue-400'>rating:{rating}</p>
                     <p className='text-blue-400'>duration:{duration}</p>
