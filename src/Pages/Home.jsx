@@ -10,10 +10,10 @@ import RecentMovies from '../component/RecentMovies';
 
 import Aos from 'aos';
 import 'aos/dist/aos.css';
-const totalUsersPromise = fetch('http://localhost:3000/users')
+const totalUsersPromise = fetch('https://movie-world-server-navy.vercel.app/users')
 .then((res) => res.json());
 console.log(totalUsersPromise);
-const totalMoviesPromise = fetch('http://localhost:3000/movies')
+const totalMoviesPromise = fetch('https://movie-world-server-navy.vercel.app/movies')
 .then((res) => res.json());
 
 const Home = () => {
@@ -24,7 +24,7 @@ const Home = () => {
    
    const totalUsers= use(totalUsersPromise);
 
-    const latestMoviePromise = fetch('http://localhost:3000/latestMovies')
+    const latestMoviePromise = fetch('https://movie-world-server-navy.vercel.app/latestMovies')
         .then((res) => res.json());
     useEffect(() => {
         Aos.init({

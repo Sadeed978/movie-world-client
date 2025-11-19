@@ -11,7 +11,7 @@ const Movies = () => {
     const [maxRating, setMaxRating] = useState('');
     const handleFilter = (e) => {
         e.preventDefault();
-        fetch(`http://localhost:3000/movies?genres=${genres}&minRating=${minRating}&maxRating=${maxRating}`)
+        fetch(`https://movie-world-server-navy.vercel.app/movies?genres=${genres}&minRating=${minRating}&maxRating=${maxRating}`)
             .then(res => res.json())
             .then(movies => {
                 setFilteredMovies(movies);

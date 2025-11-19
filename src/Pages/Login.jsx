@@ -45,7 +45,7 @@ const Login = () => {
         email: user.email,
         uid: user.uid,
       };
-       fetch('http://localhost:3000/users',{
+       fetch('https://movie-world-server-navy.vercel.app/users',{
         method: 'POST',
         headers:{
           'content-type':'application/json'

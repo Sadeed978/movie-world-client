@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 const MyCollections = () => {
     const {user} = use(AuthContext)
     const handleDelete = (id) => {
-        fetch(`http://localhost:3000/movies/${id}`, {
+        fetch(`https://movie-world-server-navy.vercel.app/movies/${id}`, {
             method: 'DELETE',
         })
         .then(res => res.json())
@@ -18,7 +18,7 @@ const MyCollections = () => {
     const [movies,setMovies]=useState([]);
     useEffect(()=>{
         if (!user?.email)return;
-        fetch( `http://localhost:3000/moviesMycollection?email=${user.email}` )
+        fetch( `https://movie-world-server-navy.vercel.app/moviesMycollection?email=${user.email}` )
         .then(res=>res.json())
         .then(data=>setMovies(data))
 

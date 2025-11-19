@@ -20,7 +20,7 @@ const MoviesDetails = () => {
           };
          
 
-            fetch('http://localhost:3000/watchlist', {
+            fetch('https://movie-world-server-navy.vercel.app/watchlist', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json'

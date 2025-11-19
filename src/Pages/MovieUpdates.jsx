@@ -12,7 +12,7 @@ const MovieUpdates = () => {
     console.log(id)
 
     useEffect(() => {
-        fetch(`http://localhost:3000/moviesById/${id}`)
+        fetch(`https://movie-world-server-navy.vercel.app/moviesById/${id}`)
             .then(res => res.json())
             .then(data => setMovieData(data));
     }, [id]);
@@ -31,7 +31,7 @@ const MovieUpdates = () => {
             rating: rating,
             publishYear: publishYear,
         };
-        fetch(`http://localhost:3000/movies/${id}?email=${user.email}`, {
+        fetch(`https://movie-world-server-navy.vercel.app/movies/${id}?email=${user.email}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

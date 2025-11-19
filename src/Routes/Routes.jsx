@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
     children:[
       {
         index:true,
-        loader:()=>fetch('http://localhost:3000/highRatedMovies'),
+        loader:()=>fetch('https://movie-world-server-navy.vercel.app/highRatedMovies'),
         Component:Home
       },
       {
@@ -33,12 +33,12 @@ export const router = createBrowserRouter([
       },
       {
         path:'/Movies',
-        loader:()=>fetch('http://localhost:3000/movies'),
+        loader:()=>fetch('https://movie-world-server-navy.vercel.app/movies'),
         Component:Movies
       },
       {
         path:'/Movies/:id',
-        loader:({params})=>fetch(`http://localhost:3000/moviesById/${params.id}`),
+        loader:({params})=>fetch(`https://movie-world-server-navy.vercel.app/moviesById/${params.id}`),
         Component:MoviesDetails
       },
       {

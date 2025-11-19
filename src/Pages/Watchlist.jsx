@@ -8,14 +8,14 @@ const Watchlist = () => {
     const {user}=use(AuthContext);
     const[watchlist,setWatchlist]=useState([]);
     useEffect(()=>{
-        fetch(`http://localhost:3000/watchlist?email=${user.email}`)
+        fetch(`https://movie-world-server-navy.vercel.app/watchlist?email=${user.email}`)
         .then(res=>res.json())
         .then(data=>setWatchlist(data));
         console.log(watchlist);
     });
 
     const handleRemove=(id)=>{
-        fetch(`http://localhost:3000/watchlist/${id}`,{
+        fetch(`https://movie-world-server-navy.vercel.app/watchlist/${id}`,{
             method:'DELETE',
         })
         .then(res=>res.json())

@@ -26,7 +26,7 @@ const AddMovie = () => {
             releaseYear: releaseYear,
         };
 
-        fetch('http://localhost:3000/movies', {
+        fetch('https://movie-world-server-navy.vercel.app/movies', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
