@@ -12,18 +12,18 @@ const AddMovie = () => {
         const form = e.target;
         const Name = form.Name.value;
         const Email = form.Email.value;
-        const movieName = form.movieName.value;
-        const photo = form.Photo.value;
+        const tittle = form.tittle.value;
+        const posterUrl = form.posterUrl.value;
         const rating = form.Rating.value;
-        const publishYear = form.PublishYear.value;
+        const releaseYear = form.releaseYear.value;
 
         const newMovie = {
             name: user.displayName,
             email: user.email,
-            photo: photo,
-            movieName: movieName,
+            posterUrl: posterUrl,
+            tittle: tittle,
             rating: rating,
-            publishYear: publishYear,
+            releaseYear: releaseYear,
         };
 
         fetch('http://localhost:3000/movies', {
@@ -60,14 +60,14 @@ const AddMovie = () => {
                             <input type="text" name='Name' className="input" readOnly defaultValue={user.displayName} />
                             <label className="label">Email</label>
                             <input type="email" name='Email'className="input" readOnly defaultValue={user.email} />
-                            <label className="label">Photo URL</label>
-                            <input type="text" name='Photo' className="input" placeholder="Photo URl" />
-                            <label className="label">Movie Name</label>
-                            <input type="text" name='movieName' className="input"  placeholder='movie Name' />
+                            <label className="label">posterUrl</label>
+                            <input type="text" name='posterUrl' className="input" placeholder="Photo URl" />
+                            <label className="label">tittle</label>
+                            <input type="text" name='tittle' className="input"  placeholder='movie tittle' />
                             <label className="label"> Rating</label>
                             <input type="text" name='Rating' className="input" placeholder='Rating' />
-                            <label className="label">Publish year</label>
-                            <input type="text" name='PublishYear' className="input" placeholder="Publish Year" />
+                            <label className="label">releaseYear</label>
+                            <input type="text" name='releaseYear' className="input" placeholder="releaseYear" />
 
                             <button className="btn btn-neutral mt-4">Press to ADD</button>
                         </fieldset>

@@ -19,7 +19,7 @@ const MovieUpdates = () => {
     if (!movieData) return <span className="loading loading-dots loading-xl"></span>;
     const handleUpdate = (event) => {
         event.preventDefault();
-        const movieName = event.target.movieName.value;
+        const tittle = event.target.tittle.value;
         const photo = event.target.photo.value;
         const rating = event.target.rating.value;
         const publishYear = event.target.publishYear.value;
@@ -27,7 +27,7 @@ const MovieUpdates = () => {
             name: user.displayName,
             email: user.email,
             photo: photo,
-            movieName: movieName,
+            movieName: tittle,
             rating: rating,
             publishYear: publishYear,
         };
@@ -52,8 +52,8 @@ const MovieUpdates = () => {
 
                 <input
                     type="text"
-                    name="movieName"
-                    defaultValue={movieData.movieName}
+                    name="tittle"
+                    defaultValue={movieData.tittle}
                     className="input input-bordered w-full"
                     placeholder="Movie Name"
                 />
@@ -61,7 +61,7 @@ const MovieUpdates = () => {
                 <input
                     type="text"
                     name="photo"
-                    defaultValue={movieData.photo}
+                    defaultValue={movieData.posterUrl}
                     className="input input-bordered w-full"
                     placeholder="Photo URL"
                 />
@@ -77,7 +77,7 @@ const MovieUpdates = () => {
                 <input
                     type="text"
                     name="publishYear"
-                    defaultValue={movieData.publishYear}
+                    defaultValue={movieData.releaseYear}
                     className="input input-bordered w-full"
                     placeholder="Publish Year"
                 />
