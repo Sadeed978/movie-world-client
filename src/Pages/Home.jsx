@@ -47,7 +47,7 @@ const Home = () => {
                     grabCursor={true}
                     centeredSlides={true}
                     slidesPerView={6}
-                    spaceBetween={30}
+                    spaceBetween={5}
                     coverflowEffect={{
                         rotate: 0,
                         stretch: 0,

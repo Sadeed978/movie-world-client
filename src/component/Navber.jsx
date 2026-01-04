@@ -5,6 +5,7 @@ import AuthContext from '../contexts/AuthContexts';
 import { use } from 'react';
 import {FaRegUserCircle } from "react-icons/fa";
 import { toast } from 'react-toastify';
+import Logo from './Logo';
 
 
 const Navber = () => {
@@ -12,14 +13,12 @@ const Navber = () => {
     const linkClass = ({ isActive }) => (isActive ? 'text-blue-500  font-bold' : 'default');
     const links = <>
         <li><NavLink to='/' className={linkClass}>Home</NavLink></li>
-        <li><NavLink to='/Register' className={linkClass}>Registration</NavLink></li>
-        <li><NavLink to='/Login' className={linkClass}>Login</NavLink></li>
+        <li><NavLink to='/About' className={linkClass}>About</NavLink></li>
         <li><NavLink to='/Movies' className={linkClass}>Movies</NavLink></li>
         
         {user && <> 
-            <li><NavLink to='/Movies/add' className={linkClass}>AddMovies</NavLink></li>
-            <li><NavLink to='/Movies/MyColection' className={linkClass}>MyCollection</NavLink></li>
-            <li><NavLink to='/Movies/Watchlist' className={linkClass}>Watchlist</NavLink></li>
+            <li><NavLink to='/dashboard' className={linkClass}>Dashboard</NavLink></li>
+            <li><NavLink to='/dashboard/profile' className={linkClass}>Profile</NavLink></li>
         </>}
     </>
     const handleLogOut = () => {
@@ -46,11 +45,8 @@ const Navber = () => {
                         {links}
                     </ul>
                 </div>
-                <div className='flex flex-row border rounded p-5 bg-amber-500'>
-                <img src='https://i.ibb.co.com/GfSCnRZW/png-clipart-movies-logo-backsheet-hand-painted.png' alt="" className='w-7 md:9'/>
-                <a className="btn btn-ghost text-xl">MOVIE <span className=' text-blue-600'>WORLD</span></a>
-                </div>
-                
+                <Logo></Logo>
+
             </div>
             <div className="navbar-center hidden  lg:flex">
                 <ul className="menu menu-horizontal px-1">

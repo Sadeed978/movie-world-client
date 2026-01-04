@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import Root from "../Layout/Root";
+import DashboardLayout from "../Layout/DashboardLayout";
 import Home from "../Pages/Home";
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
@@ -11,6 +12,9 @@ import MovieUpdates from "../Pages/MovieUpdates";
 import PrivateRoute from "../PrivateRoute";
 import MyCollections from "../Pages/MyCollections";
 import Watchlist from "../Pages/Watchlist";
+import Dashboard from "../Pages/Dashboard";
+import Profile from "../Pages/Profile";
+import About from "../Pages/About";
 
 export const router = createBrowserRouter([
   {
@@ -37,28 +41,56 @@ export const router = createBrowserRouter([
         Component:Movies
       },
       {
-        path:'/Movies/:id',
-        loader:({params})=>fetch(`https://movie-world-server-navy.vercel.app/moviesById/${params.id}`),
-        Component:MoviesDetails
+        path:'/about',
+        element:<About></About>
+
       },
-      {
-        path:'/Movies/update/:id',
-        element:<PrivateRoute><MovieUpdates></MovieUpdates></PrivateRoute>
-      },
-      {
-        path:'/Movies/add',
-        element:<PrivateRoute><AddMovie></AddMovie></PrivateRoute>
-    
-      },
-      {
-        path:'Movies/MyColection',
-        element:<PrivateRoute><MyCollections></MyCollections></PrivateRoute>
-    
-      },
-      {
-        path:'/Movies/Watchlist',
-        element:<PrivateRoute><Watchlist></Watchlist></PrivateRoute>
-      },
+     
+    ]
+  },
+  {
+    path:'dashboard',
+    element:<PrivateRoute>
+     <DashboardLayout></DashboardLayout>
+    </PrivateRoute>,
+    children:[
+         {
+          path:'/dashboard',
+          element:<Dashboard></Dashboard>
+
+        },
+        {
+          path:'/dashboard/profile',
+          element:<Profile></Profile>
+
+        },
+        
+      
+        {
+          path:'/dashboard/Movies/:id',
+          loader:({params})=>fetch(`https://movie-world-server-navy.vercel.app/moviesById/${params.id}`),
+          element:<MoviesDetails></MoviesDetails>
+        },
+
+        {
+          path:'/dashboard/update/:id',
+          element:<MovieUpdates></MovieUpdates>
+        },
+        {
+          path:'/dashboard/add',
+          element:<AddMovie></AddMovie>
+      
+        },
+        {
+          path:'/dashboard/MyColection',
+          element:<MyCollections></MyCollections>
+      
+        },
+        {
+          path:'/dashboard/Watchlist',
+          element:<Watchlist></Watchlist>
+        },
+
     ]
   }
 ]);

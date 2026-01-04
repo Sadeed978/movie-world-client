@@ -13,8 +13,8 @@ const Login = () => {
       setShowPassword(!showPassword);
     }
   const {signInUser,signInWithGoogle,setUser} = use(AuthContext);
-   const location = useLocation();
-   const navigate= useNavigate();
+  const location = useLocation();
+  const navigate= useNavigate();
   const handleLogIn = (event) =>{
     event.preventDefault();
     const email = event.target.email.value;
