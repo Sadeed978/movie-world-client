@@ -3,7 +3,7 @@ import { NavLink } from 'react-router';
 import { Link } from 'react-router';
 import AuthContext from '../contexts/AuthContexts';
 import { use } from 'react';
-import {FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import Logo from './Logo';
 
@@ -15,8 +15,8 @@ const Navber = () => {
         <li><NavLink to='/' className={linkClass}>Home</NavLink></li>
         <li><NavLink to='/About' className={linkClass}>About</NavLink></li>
         <li><NavLink to='/Movies' className={linkClass}>Movies</NavLink></li>
-        
-        {user && <> 
+
+        {user && <>
             <li><NavLink to='/dashboard' className={linkClass}>Dashboard</NavLink></li>
             <li><NavLink to='/dashboard/profile' className={linkClass}>Profile</NavLink></li>
         </>}
@@ -55,33 +55,40 @@ const Navber = () => {
             </div>
             <div className="navbar-end">
                 <div className="navbar-end">
-                    {user ? (
-
-                        <div className='flex item -end gap-3'>
-                            
-                               
+                    <div className="navbar-end">
+                        {user ? (
+                            <div className='flex item -end gap-3'>
                                 <div className="dropdown dropdown-start">
                                     <div tabIndex={0} role="button" ><div>
-                                    {user.photoURL ? (
-                                    <img
-                                        src={user.photoURL}
-                                        alt={user.displayName || 'User'}
-                                        className='w-10 h-10 rounded-full'></img>
-                                ) : (
-                                    <FaRegUserCircle className='w-10 h-10'></FaRegUserCircle>
-                                )}
-                                        </div></div>
-                                    <ul tabIndex="-1" className="dropdown-content menu bg-base-100  z-1 w-52 p-2 shadow-sm">
-                                        <li><a>{user.displayName || 'No name'}</a></li>
-                                        <li><a>{user.email || 'No email'}</a></li>
+                                        {user.photoURL ? (
+                                            <img
+                                                src={user.photoURL}
+                                                alt={user.displayName || 'User'}
+                                                className='w-10 h-10 rounded-full'></img>
+                                        ) : (
+                                            <FaRegUserCircle className='w-10 h-10'></FaRegUserCircle>
+                                        )}
+                                    </div></div>
+                                    <ul tabIndex="-1" className="dropdown-content menu bg-base-100  z-80 w-52 p-2 -ml-20 shadow-sm">
+                                        <li className='font-bold text-black-600'>{user.name}</li>
+                                        <li className='font-bold text-black-600'>{user.email}</li>
+                                        <>
+                                            <li><NavLink to='/dashboard/add' className={linkClass}>AddMovies</NavLink></li>
+                                            <li><NavLink to='/dashboard/MyColection' className={linkClass}>MyCollection</NavLink></li>
+                                            <li><NavLink to='/dashboard/Watchlist' className={linkClass}>Watchlist</NavLink></li>
+                                            <li><NavLink to='/dashboard' className={linkClass}>Dashboard</NavLink></li>
+                                            <li><NavLink to='/dashboard/profile' className={linkClass}>Profile</NavLink></li></>
+
                                     </ul>
                                 </div>
-    
-                
-                            <button onClick={handleLogOut} className='btn btn-sm btn-outline btn-warning'>Log out</button>
-                        </div>) : (
-                        <Link to='/Login' className="btn btn-outline text-blue-600">Login</Link>)}
 
+
+                                <button onClick={handleLogOut} className='btn btn-sm btn-outline btn-warning'>Log out</button>
+                            </div>) : (
+                            <Link to='/Login' className="btn btn-outline text-blue-600">Login</Link>)}
+
+
+                    </div>
 
                 </div>
             </div>

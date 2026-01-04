@@ -1,5 +1,6 @@
 import React, { Suspense, use, useEffect } from 'react';
 import Banner from '../component/Banner';
+import FAQ from '../component/FAQ';
 import { useLoaderData } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -7,6 +8,7 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import { EffectCoverflow, Pagination } from 'swiper/modules';
 import RecentMovies from '../component/RecentMovies';
+import Contact from '../component/Contact';
 
 import Aos from 'aos';
 import 'aos/dist/aos.css';
@@ -78,7 +80,7 @@ const Home = () => {
                 </Swiper>
 
 
-                <div className="stats shadow items-center justify-center mt-10 bg-gray-100 p-4 rounded-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="stats shadow items-center justify-center mt-10 bg-blue-500 p-4 rounded-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div className="stat place-items-center">
                         <div className="stat-title text-2xl">Movies</div>
                         <div className="stat-value">{totalMovies.length}</div>
@@ -90,8 +92,18 @@ const Home = () => {
                         <div className="stat-value text-secondary">{totalUsers.length}</div>
                         
                     </div>
+                    <div>
+                        <div className="stat place-items-center">
+                            <div className="stat-title text-2xl">Reviews</div>
+                            <div className="stat-value text-secondary">1.2K</div>
+                            
+                        </div>
+                    </div>
 
                     
+                </div>
+                <div className='p-2' >
+                    <FAQ></FAQ>
                 </div>
 
             </div>
@@ -101,6 +113,9 @@ const Home = () => {
                 </Suspense>
 
 
+            </div>
+            <div className='p-4'>
+               <Contact></Contact> 
             </div>
 
 
