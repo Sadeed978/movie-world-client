@@ -4,9 +4,11 @@ import Footer from '../component/Footer';
 import { Outlet } from 'react-router';
 const Root = () => {
     return (
-        <div>
+        <div className="min-h-screen flex flex-col">
             <Navber></Navber>
-            <Outlet></Outlet>
+            <main className="flex-1">
+                <Outlet></Outlet>
+            </main>
             <Footer></Footer>
         </div>
     );

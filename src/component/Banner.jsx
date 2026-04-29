@@ -5,9 +5,9 @@ import { EffectFade, Autoplay } from 'swiper/modules';
 
 const Banner = () => {
     const images = [
-        "https://i.ibb.co.com/xSGFyz0Y/2019movies-900x789.jpg",
-        "https://i.ibb.co.com/9HRwrmk6/photo-1626814026160-2237a95fc5a0-fm-jpg-q-60-w-3000-ixlib-rb-4-1.jpg",
-        "https://i.ibb.co.com/d0Sw8rXD/a-PGps1-Ze-Or7-OC6s-F3-Vvzg-store-banner-image.jpg"
+        "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1400&q=80",
+        "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1400&q=80",
+        "https://images.unsplash.com/photo-1574267432553-4b4628081c31?w=1400&q=80"
 ];
     return (
         <div>

@@ -1,86 +1,161 @@
-import React, { useRef, use } from 'react';
+import { use, useState } from 'react';
 import AuthContext from '../contexts/AuthContexts';
+import { toast } from 'react-toastify';
+import { FaFilm, FaLink, FaStar, FaCalendarAlt, FaUser, FaEnvelope } from 'react-icons/fa';
 
 const AddMovie = () => {
-    const AddMovieRef = useRef(null);
-    const handleAddMovie = () => {
-        AddMovieRef.current.showModal();
-    }
     const { user } = use(AuthContext);
+    const [loading, setLoading] = useState(false);
+
     const handleAddMovieSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
-        const Name = form.Name.value;
-        const Email = form.Email.value;
-        const tittle = form.tittle.value;
-        const posterUrl = form.posterUrl.value;
-        const rating = form.Rating.value;
-        const releaseYear = form.releaseYear.value;
-
         const newMovie = {
             name: user.displayName,
             email: user.email,
-            posterUrl: posterUrl,
-            tittle: tittle,
-            rating: rating,
-            releaseYear: releaseYear,
+            posterUrl: form.posterUrl.value,
+            title: form.title.value,
+            rating: form.rating.value,
+            releaseYear: form.releaseYear.value,
         };
 
+        setLoading(true);
         fetch('https://movie-world-server-navy.vercel.app/movies', {
             method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
+            headers: { 'content-type': 'application/json' },
             body: JSON.stringify(newMovie)
         })
             .then(res => res.json())
-            .then(data => {
-                console.log('get the data', data)
+            .then(() => {
+                toast.success('Movie added successfully!');
                 form.reset();
-                AddMovieRef.current.close();
             })
-    
-    }
+            .catch(() => toast.error('Failed to add movie. Try again.'))
+            .finally(() => setLoading(false));
+    };
+
     return (
-        <div className='m-4 text-center'>
-            <div className='mb-4 text-center'>
-            <h1 className='text-3xl'>Welcome to Movie <span className='text-blue-500'>World</span> </h1>
-            <p className='text-2xl'>Add your movie Here</p>
-            </div>
-            
-            <button onClick={handleAddMovie} className="btn btn-primary">Add Your Movie</button>
-            {/* Open the modal using document.getElementById('ID').showModal() method */}
+        <div className="min-h-screen bg-base-100 flex items-center justify-center p-6">
+            <div className="w-full max-w-xl">
 
-            <dialog ref={AddMovieRef} className="modal modal-bottom sm:modal-middle">
-                <div className="modal-box">
-                    <h3 className="font-bold text-lg">Add your Movie</h3>
-                    <form onSubmit={handleAddMovieSubmit}>
-                        <fieldset className="fieldset">
-                            <label className="label">Name</label>
-                            <input type="text" name='Name' className="input" readOnly defaultValue={user.displayName} />
-                            <label className="label">Email</label>
-                            <input type="email" name='Email'className="input" readOnly defaultValue={user.email} />
-                            <label className="label">posterUrl</label>
-                            <input type="text" name='posterUrl' className="input" placeholder="Photo URl" />
-                            <label className="label">tittle</label>
-                            <input type="text" name='tittle' className="input"  placeholder='movie tittle' />
-                            <label className="label"> Rating</label>
-                            <input type="text" name='Rating' className="input" placeholder='Rating' />
-                            <label className="label">releaseYear</label>
-                            <input type="text" name='releaseYear' className="input" placeholder="releaseYear" />
-
-                            <button className="btn btn-neutral mt-4">Press to ADD</button>
-                        </fieldset>
-                    </form>
-                    <p className="py-4">Press ESC key or click the button below to close</p>
-                    <div className="modal-action">
-                        <form method="dialog">
-                            {/* if there is a button in form, it will close the modal */}
-                            <button className="btn">Close</button>
-                        </form>
+                {/* Header */}
+                <div className="text-center mb-8">
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+                        <FaFilm className="text-3xl text-primary" />
                     </div>
+                    <h1 className="text-3xl font-extrabold">
+                        Add a <span className="text-primary">Movie</span>
+                    </h1>
+                    <p className="text-gray-500 mt-2 text-sm">Fill in the details below to add a new movie to the collection.</p>
                 </div>
-            </dialog>
+
+                {/* Form Card */}
+                <div className="bg-base-200 rounded-3xl shadow-xl border border-base-300 p-8">
+                    <form onSubmit={handleAddMovieSubmit} className="flex flex-col gap-5">
+
+                        {/* Name — readonly */}
+                        <div className="form-control">
+                            <label className="label text-xs font-semibold uppercase tracking-widest text-gray-500 flex items-center gap-2">
+                                <FaUser className="text-primary" /> Your Name
+                            </label>
+                            <input
+                                type="text"
+                                name="name"
+                                className="input input-bordered bg-base-100 opacity-60 cursor-not-allowed"
+                                readOnly
+                                defaultValue={user?.displayName || ''}
+                            />
+                        </div>
+
+                        {/* Email — readonly */}
+                        <div className="form-control">
+                            <label className="label text-xs font-semibold uppercase tracking-widest text-gray-500 flex items-center gap-2">
+                                <FaEnvelope className="text-secondary" /> Email
+                            </label>
+                            <input
+                                type="email"
+                                name="email"
+                                className="input input-bordered bg-base-100 opacity-60 cursor-not-allowed"
+                                readOnly
+                                defaultValue={user?.email || ''}
+                            />
+                        </div>
+
+                        {/* Divider */}
+                        <div className="divider text-xs text-gray-400">Movie Details</div>
+
+                        {/* Title */}
+                        <div className="form-control">
+                            <label className="label text-xs font-semibold uppercase tracking-widest text-gray-500 flex items-center gap-2">
+                                <FaFilm className="text-primary" /> Movie Title
+                            </label>
+                            <input
+                                type="text"
+                                name="title"
+                                required
+                                placeholder="e.g. Inception"
+                                className="input input-bordered bg-base-100 focus:border-primary"
+                            />
+                        </div>
+
+                        {/* Poster URL */}
+                        <div className="form-control">
+                            <label className="label text-xs font-semibold uppercase tracking-widest text-gray-500 flex items-center gap-2">
+                                <FaLink className="text-secondary" /> Poster URL
+                            </label>
+                            <input
+                                type="url"
+                                name="posterUrl"
+                                required
+                                placeholder="https://example.com/poster.jpg"
+                                className="input input-bordered bg-base-100 focus:border-primary"
+                            />
+                        </div>
+
+                        {/* Rating + Release Year side by side */}
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="form-control">
+                                <label className="label text-xs font-semibold uppercase tracking-widest text-gray-500 flex items-center gap-2">
+                                    <FaStar className="text-warning" /> Rating
+                                </label>
+                                <input
+                                    type="number"
+                                    name="rating"
+                                    required
+                                    min="0"
+                                    max="10"
+                                    step="0.1"
+                                    placeholder="0 – 10"
+                                    className="input input-bordered bg-base-100 focus:border-primary"
+                                />
+                            </div>
+                            <div className="form-control">
+                                <label className="label text-xs font-semibold uppercase tracking-widest text-gray-500 flex items-center gap-2">
+                                    <FaCalendarAlt className="text-accent" /> Release Year
+                                </label>
+                                <input
+                                    type="number"
+                                    name="releaseYear"
+                                    required
+                                    min="1900"
+                                    max="2100"
+                                    placeholder="e.g. 2024"
+                                    className="input input-bordered bg-base-100 focus:border-primary"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Submit */}
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="btn btn-primary w-full rounded-xl mt-2 text-base font-bold"
+                        >
+                            {loading ? <span className="loading loading-spinner loading-sm" /> : '🎬 Add Movie'}
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 };

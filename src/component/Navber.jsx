@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
 import { Link } from 'react-router';
 import AuthContext from '../contexts/AuthContexts';
 import { use } from 'react';
 import { FaRegUserCircle } from "react-icons/fa";
+import { FaSun, FaMoon } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import Logo from './Logo';
 
 
 const Navber = () => {
     const { user, signOutUser } = use(AuthContext);
+
+    const [isDark, setIsDark] = useState(() => {
+        const saved = localStorage.getItem('theme');
+        return saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    });
+
+    useEffect(() => {
+        const theme = isDark ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    }, [isDark]);
+
+    const toggleTheme = () => setIsDark(prev => !prev);
     const linkClass = ({ isActive }) => (isActive ? 'text-blue-500  font-bold' : 'default');
     const links = <>
         <li><NavLink to='/' className={linkClass}>Home</NavLink></li>
@@ -33,7 +47,7 @@ const Navber = () => {
             });
     }
     return (
-        <div className="navbar bg-base-100 shadow-sm">
+        <div className="navbar bg-base-100/80 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-all duration-300">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -56,6 +70,19 @@ const Navber = () => {
             <div className="navbar-end">
                 <div className="navbar-end">
                     <div className="navbar-end">
+                        {/* Theme toggle */}
+                        <button
+                            onClick={toggleTheme}
+                            className="btn btn-ghost btn-circle mr-2"
+                            aria-label="Toggle theme"
+                        >
+                            {isDark ? (
+                                <FaSun className="w-5 h-5 text-yellow-400" />
+                            ) : (
+                                <FaMoon className="w-5 h-5 text-gray-600" />
+                            )}
+                        </button>
+
                         {user ? (
                             <div className='flex item -end gap-3'>
                                 <div className="dropdown dropdown-start">

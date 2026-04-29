@@ -1,85 +1,78 @@
-import React from 'react';
+import { useState, useMemo } from 'react';
 import { useLoaderData } from 'react-router';
 import Movie from '../component/Movie';
-import { useState } from 'react';
-import { FreeMode } from 'swiper/modules';
-import { toast } from 'react-toastify';
+import { FaSearch, FaTimes } from 'react-icons/fa';
+
 const Movies = () => {
-    const [filteredMovies, setFilteredMovies] = useState([]);
-    const [genres, setGenres] = useState('');
-    const [minRating, setMinRating] = useState('');
-    const [maxRating, setMaxRating] = useState('');
-    const handleFilter = (e) => {
-        e.preventDefault();
-        fetch(`https://movie-world-server-navy.vercel.app/movies?genres=${genres}&minRating=${minRating}&maxRating=${maxRating}`)
-            .then(res => res.json())
-            .then(movies => {
-                setFilteredMovies(movies);
-                toast.success('Movies filtered successfully!');
-            })
-            .catch(error => {
-                console.error('Error fetching filtered movies:', error);
-                toast.error('Failed to filter movies. Please try again.');
-            });        
-    };
     const data = useLoaderData();
+    const [query, setQuery] = useState('');
+
+    const filtered = useMemo(() => {
+        const q = query.trim().toLowerCase();
+        if (!q) return data;
+        return data.filter(movie =>
+            movie.title?.toLowerCase().includes(q) ||
+            movie.plotSummary?.toLowerCase().includes(q)
+        );
+    }, [query, data]);
+
     return (
-        <div>
-            {/* Open the modal using document.getElementById('ID').showModal() method */}
-            <button className="btn text-end" onClick={() => document.getElementById('my_modal_5').showModal()}>Movie Filter</button>
-            <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-                <div className="modal-box">
-                    <h3 className="font-bold text-lg">Filter Movies</h3>
-                    <form onSubmit={handleFilter} className="flex flex-col gap-4 mt-4">
-                    
-                <input
+        <div className="p-4">
+
+            {/* ── Centered Header ── */}
+            <div className="text-center py-10 px-4">
+                <h1 className="text-4xl font-extrabold">
+                    Trending <span className="text-primary">Movies</span>
+                </h1>
+                <p className="text-gray-500 mt-3 max-w-xl mx-auto text-base">
+                    Choose your favourite movie and click to see details.
+                </p>
+
+                {/* ── Search Bar ── */}
+                <div className="relative max-w-md mx-auto mt-6">
+                    <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
+                    <input
                         type="text"
-                        placeholder="Genres (comma-separated)"
-                        value={genres}
-                        onChange={(e) => setGenres(e.target.value)}
-                        className="input input-bordered w-full"
+                        value={query}
+                        onChange={e => setQuery(e.target.value)}
+                        placeholder="Search movies by title or genre..."
+                        className="input input-bordered w-full pl-10 pr-10 rounded-full focus:outline-none focus:border-primary"
                     />
-                    <div className="flex gap-4">
-                        <input
-                            type="number"
-                            placeholder="Min Rating"
-                            value={minRating}
-                            onChange={(e) => setMinRating(e.target.value)}
-                            className="input input-bordered w-full"
-                        />
-                        <input
-                            type="number"
-                            placeholder="Max Rating"
-                            value={maxRating}
-                            onChange={(e) => setMaxRating(e.target.value)}
-                            className="input input-bordered w-full"
-                        />
-                        </div>
-                    <div className="modal-action">
-                        <form method="dialog">
+                    {query && (
+                        <button
+                            onClick={() => setQuery('')}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-error transition-colors"
+                        >
+                            <FaTimes />
+                        </button>
+                    )}
+                </div>
 
-                         <button type='submit' className='btn btn-primary'>Apply Filter</button>
-                            {/* if there is a button in form, it will close the modal */}
-                            <button className="btn">Close</button>
-                        </form>
-                    </div> 
-                    </form>
-                </div>
-            </dialog>
-            <div className='m-4 '>
-                <div className='text-center mb-8 p-4'>
-                    <h1 className='text-3xl text-gray-500'>Trending <span className='text-blue-500'> Movies</span> </h1>
-                    <p className='text-2xl text-gray-500'>Choose your favourite movies. click the movie and go to movie details page.</p>
-                </div>
-                <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 p-4'>
-                    {
-                        data.map(movie => < Movie key={movie.id} movie={movie} />)
-                    }
-                </div>
+                {/* Result count */}
+                {query && (
+                    <p className="text-sm text-gray-500 mt-3">
+                        {filtered.length === 0
+                            ? 'No movies found'
+                            : `${filtered.length} movie${filtered.length > 1 ? 's' : ''} found`}
+                    </p>
+                )}
             </div>
+
+            {/* ── Movie Grid ── */}
+            {filtered.length > 0 ? (
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 px-4 pb-10">
+                    {filtered.map(movie => (
+                        <Movie key={movie._id || movie.id} movie={movie} />
+                    ))}
+                </div>
+            ) : (
+                <div className="text-center py-20 text-gray-400">
+                    <FaSearch className="text-5xl mx-auto mb-4 opacity-30" />
+                    <p className="text-xl font-semibold">No movies match "{query}"</p>
+                    <p className="text-sm mt-1">Try a different title or keyword</p>
+                </div>
+            )}
         </div>
-
-
     );
 };
 

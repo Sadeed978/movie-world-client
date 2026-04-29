@@ -45,6 +45,11 @@ export const router = createBrowserRouter([
         element:<About></About>
 
       },
+      {
+        path:'/movies/:id',
+        loader:({params})=>fetch(`https://movie-world-server-navy.vercel.app/moviesById/${params.id}`),
+        element:<MoviesDetails></MoviesDetails>
+      },
      
     ]
   },
