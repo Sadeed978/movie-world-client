@@ -36,29 +36,26 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-base-100 p-6">
 
-      {/* ── Cover + Avatar ── */}
-      <div className="relative rounded-3xl overflow-hidden shadow-xl mb-6">
-        {/* Cover gradient */}
-        <div className="h-44 bg-gradient-to-r from-primary via-secondary to-accent" />
+      {/* ── Cover ── */}
+      <div className="rounded-3xl overflow-hidden shadow-xl h-44 bg-gradient-to-r from-primary via-secondary to-accent mb-0" />
 
-        {/* Avatar */}
-        <div className="absolute left-1/2 -translate-x-1/2 -bottom-12">
-          {user?.photoURL ? (
-            <img
-              src={user.photoURL}
-              alt="avatar"
-              className="w-24 h-24 rounded-full ring-4 ring-base-100 object-cover shadow-lg"
-            />
-          ) : (
-            <div className="w-24 h-24 rounded-full ring-4 ring-base-100 bg-base-300 flex items-center justify-center shadow-lg">
-              <FaUserCircle className="text-5xl text-base-content/40" />
-            </div>
-          )}
-        </div>
+      {/* ── Avatar (outside overflow-hidden, overlaps cover) ── */}
+      <div className="flex justify-center -mt-12 mb-4">
+        {user?.photoURL ? (
+          <img
+            src={user.photoURL}
+            alt="avatar"
+            className="w-24 h-24 rounded-full ring-4 ring-base-100 object-cover shadow-xl"
+          />
+        ) : (
+          <div className="w-24 h-24 rounded-full ring-4 ring-base-100 bg-base-300 flex items-center justify-center shadow-xl">
+            <FaUserCircle className="text-5xl text-base-content/40" />
+          </div>
+        )}
       </div>
 
       {/* ── Name & Email ── */}
-      <div className="text-center mt-14 mb-8">
+      <div className="text-center mb-8">
         <h1 className="text-3xl font-extrabold">{user?.displayName || "Movie Fan"}</h1>
         <p className="text-gray-500 flex items-center justify-center gap-2 mt-1">
           <FaEnvelope className="text-primary" /> {user?.email}
